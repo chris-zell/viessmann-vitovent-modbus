@@ -1,0 +1,50 @@
+# ============================================================
+# Vitovent 300-W: re-send ventilation stage (register 2002) to survive power loss
+# Refs: issue #6. Requires the ESPHome config in esphome/vitovent-300w.yaml.
+#
+# Home Assistant keeps the desired stage in an input_select (survives restarts)
+# and writes it to the unit every minute. The unit's own value is only read, never trusted as the target.
+# ============================================================
+
+input_select:
+  vitovent_stage_target:
+    name: "Vitovent Stufe Soll"
+    options:
+      - "Stufe 1"
+      - "Stufe 2"
+      - "Stufe 3"
+      - "Stufe 4"
+      - "Intensiv"
+    initial: "Stufe 2"
+    icon: mdi:fan
+
+automation:
+  - alias: "Vitovent: Sollstufe periodisch senden"
+    id: vitovent_stage_resend
+    mode: single
+    trigger:
+      - platform: time_pattern
+        minutes: "/1"
+    condition:
+      - condition: template
+        # Skip while the unit is unreachable, otherwise the write would fail
+        value_template: "{{ states('select.vitovent_300w_lueftungsstufe_soll') not in ['unknown', 'unavailable'] }}"
+    action:
+      - service: select.select_option
+        target:
+          entity_id: select.vitovent_300w_lueftungsstufe_soll
+        data:
+          option: "{{ states('input_select.vitovent_stage_target') }}"
+
+  - alias: "Vitovent: Sollstufe sofort senden bei Änderung"
+    id: vitovent_stage_on_change
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: input_select.vitovent_stage_target
+    action:
+      - service: select.select_option
+        target:
+          entity_id: select.vitovent_300w_lueftungsstufe_soll
+        data:
+          option: "{{ trigger.to_state.state }}"
