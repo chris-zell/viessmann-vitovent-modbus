@@ -21,6 +21,36 @@ Before any write:
 3. Do not write register values unless the board and the register behaviour have been verified on that unit.
 4. Only one Modbus master may be active on the bus at a time.
 
+## Verschaltung (Übersicht)
+
+Die Komponenten werden in dieser Reihenfolge verbunden:
+
+```
+AtomS3 Lite           Eigenbau-Kabel         Tail485                 Vitovent 300-W
+PORT.A                                       TTL-Seite   RS485-Seite  X15
+ Pin 1 GPIO1 (RX) ----------------------------- RX  (RO) ... A  ------------- Pin 2 (A+)
+ Pin 2 GPIO2 (TX) ----------------------------- TX  (DI) ... B  ------------- Pin 1 (B-)
+ Pin 3 5 V       ------------------------------ 5 V
+ Pin 4 GND       ------------------------------ GND ------------------------- Pin 3 (GND)
+```
+
+- Der AtomS3 Lite steckt in PORT.A. Die Belegung ist unten (Tabelle) und wird in `esphome/vitovent-300w.yaml` über `modbus_rx_pin` und `modbus_tx_pin` gesetzt.
+- Das Kabel verbindet PORT.A (2,0 mm) mit dem Tail485 (VH-3.96). Die Farben für die Adern nach dem M5-Standard: G1 = weiß, G2 = gelb, 5 V = rot, GND = schwarz.
+- Der Tail485 bekommt die RS485-Leitungen A und B auf den VH-3.96-Stecker. A geht an Pin 2 von X15, B an Pin 1.
+- Die Signal-GND muss auf X15 Pin 3 gelegt werden. Ohne sie antwortet der Bus laut README nicht.
+
+| Verbindung | Von | Nach |
+|---|---|---|
+| RX (ESP → Empfang) | AtomS3 PORT.A Pin 1 (GPIO1) | Tail485 RX (RO) |
+| TX (ESP → Senden) | AtomS3 PORT.A Pin 2 (GPIO2) | Tail485 TX (DI) |
+| Spannung | AtomS3 PORT.A Pin 3 (5 V) | Tail485 5 V |
+| Masse | AtomS3 PORT.A Pin 4 (GND) | Tail485 GND |
+| Bus A | Tail485 A | X15 Pin 2 (A+) |
+| Bus B | Tail485 B | X15 Pin 1 (B−) |
+| Bus GND | Tail485 GND | X15 Pin 3 (GND) |
+
+Offen (siehe Issues): Die Zuordnung Tail485 TX/RX zu DI/RO ist aus der M5-Tabelle und dem Chip abgeleitet, nicht am Board geprüft (#2). Die Richtungsumschaltung ist nicht getestet (#3).
+
 ## Bus connection (unit side, X15)
 
 | X15 pin | Function |
