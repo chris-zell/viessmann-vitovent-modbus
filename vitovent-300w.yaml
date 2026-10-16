@@ -35,8 +35,7 @@ logger:
 
 api:
   encryption:
-    key: !secret api_key
-
+    key: !secret api_encryption_key
 ota:
   - platform: esphome
     password: !secret ota_password
@@ -45,9 +44,8 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   ap:
-    ssid: "Vitovent Fallback"
-    password: !secret fallback_password
-
+    ssid: Vitovent Fallback
+    password: !secret ap_password
 captive_portal:
 
 uart:
