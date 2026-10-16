@@ -1,6 +1,6 @@
 # ============================================================
 # Vitovent 300-W: re-send ventilation stage (register 2002) to survive power loss
-# Refs: issue #6. Requires the ESPHome config in esphome/vitovent-300w.yaml.
+# Refs: issue #6. Requires the ESPHome config in vitovent-300w.yaml.
 #
 # Home Assistant keeps the desired stage in an input_select (survives restarts)
 # and writes it to the unit every minute. The unit's own value is only read, never trusted as the target.
