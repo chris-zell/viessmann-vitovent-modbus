@@ -1,5 +1,5 @@
 # ============================================================
-# VITOVENT 300-W (H32E) — Modbus RTU via Tail485 on M5Stack AtomS3
+# VITOVENT 300-W (H32E) — Modbus RTU via Tail485 on M5Stack AtomS3 Lite (PORT.A)
 # Register map: https://github.com/chris-zell/viessmann-vitovent-modbus
 # Bus: 19200 baud, 8E1, slave 70, X15 (pin 1 = B-, pin 2 = A+, pin 3 = GND)
 # ============================================================
@@ -7,7 +7,7 @@
 substitutions:
   name: vitovent-300w
   friendly_name: "Vitovent 300-W"
-  # Tail485 on AtomS3 (same pins as the Heidelberg reference config)
+  # Tail485 on AtomS3 Lite via PORT.A (same pins as the Heidelberg reference config)
   modbus_tx_pin: GPIO02
   modbus_rx_pin: GPIO01
   modbus_baud_rate: "19200"
