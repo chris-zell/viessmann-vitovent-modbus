@@ -4,6 +4,8 @@
 
 > Verified on: **Vitovent 300-W, Typ H32E C325** (enthalpy variant, order no. Z026527), August 2026, controlled via a Loxone Modbus Extension and a USR-TCP232-410S Modbus-TCP gateway. Read the [disclaimer](#disclaimer) before touching your unit.
 
+> **Ready-to-flash ESPHome config for the AtomS3 Lite + Tail485:** [`vitovent-300w.yaml`](vitovent-300w.yaml) (see [docs/hardware.md](docs/hardware.md) for wiring).
+
 ---
 
 ## TL;DR
@@ -192,7 +194,7 @@ Integration hints:
 
 - **Loxone Modbus Extension**: works out of the box (19200/8/E/1, device address 70). A **ready-made Loxone device template** is included in this repository: [`loxone-template-MB_Vitovent_300-W.xml`](loxone-template-MB_Vitovent_300-W.xml). Drop it into your Loxone Config Modbus template folder (`Documents\Loxone\Templates\Modbus`) or import it via the device-template function, create a device from it on your Modbus Extension, and you get the stage actuator (2002, FC06, with a 60 s cyclic resend as power-loss re-arm) plus all mapped sensors (÷10 corrections for temperatures already configured). Wire a 1–4 slider/logic onto the "Lüftungsstufe Soll" actuator and you are done.
 - **Home Assistant** (`modbus:` integration) / **ESPHome** (`modbus_controller`): straightforward with the table above; note that the existing Brink Flair ESPHome projects will *not* work unchanged — replace their register definitions with this map.
-- **ESPHome on M5Stack AtomS3 + Tail485** (hardware: ESP32-S3, the chip inside the AtomS3; the config uses `board: esp32-s3-devkitc-1`): a ready-made config is in [`esphome/vitovent-300w.yaml`](esphome/vitovent-300w.yaml). It uses TX = GPIO 2, RX = GPIO 1 (PORT.A on the AtomS3 Lite, wired to the Tail485 with a custom cable), 19200 baud, 8E1, slave 70. It exposes the sensors from §4.2 and the stage (2002) and bypass (6006) controls from §4.1. Secrets come from `secrets.yaml`. The pins are confirmed only by a working reference setup, not by a Tail485 datasheet; the Tail485 is assumed to switch transmit/receive direction automatically (no DE/RE pin is used). Note that ESPHome writes stage 2002 only on change, so re-send it periodically if you rely on the state (see §4.1).
+- **ESPHome on M5Stack AtomS3 + Tail485** (hardware: ESP32-S3, the chip inside the AtomS3; the config uses `board: esp32-s3-devkitc-1`): a ready-made config is in [`vitovent-300w.yaml`](vitovent-300w.yaml). It uses TX = GPIO 2, RX = GPIO 1 (PORT.A on the AtomS3 Lite, wired to the Tail485 with a custom cable), 19200 baud, 8E1, slave 70. It exposes the sensors from §4.2 and the stage (2002) and bypass (6006) controls from §4.1. Secrets come from `secrets.yaml`. The pins are confirmed only by a working reference setup, not by a Tail485 datasheet; the Tail485 is assumed to switch transmit/receive direction automatically (no DE/RE pin is used). Note that ESPHome writes stage 2002 only on change, so re-send it periodically if you rely on the state (see §4.1).
 - Demand-based control: the unit ships without CO₂/humidity sensors unless ordered — feed your room sensors into your automation and drive register 2002. That is the whole point.
 
 ## 6. Reproducing the scan
