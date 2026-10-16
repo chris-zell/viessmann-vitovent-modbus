@@ -32,6 +32,7 @@
 
 ## Table of contents
 
+0. [Hardware: units and bridge wiring](docs/hardware.md)
 1. [Background: a Brink Flair in disguise](#1-background-a-brink-flair-in-disguise)
 2. [Physical connection](#2-physical-connection)
 3. [What does NOT work](#3-what-does-not-work-brink-standard-vs-viessmann-firmware)
@@ -42,6 +43,8 @@
 8. [Open questions](#8-open-questions--contributions-welcome)
 
 ---
+
+> Origin: this documentation is based on the work published at [hornpa/viessmann-vitovent-modbus](https://github.com/hornpa/viessmann-vitovent-modbus). Check the unit generation before use (see [docs/hardware.md](docs/hardware.md)).
 
 ## 1. Background: a Brink Flair in disguise
 
