@@ -30,6 +30,7 @@
 
 ## Table of contents
 
+0. [Hardware: units and bridge wiring](docs/hardware.md)
 1. [Background: a Brink Flair in disguise](#1-background-a-brink-flair-in-disguise)
 2. [Physical connection](#2-physical-connection)
 3. [What does NOT work](#3-what-does-not-work-brink-standard-vs-viessmann-firmware)

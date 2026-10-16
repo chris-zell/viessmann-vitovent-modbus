@@ -1,0 +1,56 @@
+# Hardware: units and bridge wiring
+
+This page covers the ventilation unit variants and the wiring of the ESP32 bridge. For the register map see the [README](../README.md).
+
+## Unit variants
+
+| Model | Airflow | Status in this repo |
+|---|---|---|
+| Vitovent 300-W, Typ H32E C325 (enthalpy) | 325 m³/h | Tested (register scan, Loxone and gateway, see README) |
+| Vitovent 300-W, Typ H32S C400 (R) | 400 m³/h | Listed. Register map not verified on this variant |
+
+The register map in the README was derived from the H32E C325. Check the other variants before relying on it.
+
+## Bus connection (unit side, X15)
+
+| X15 pin | Function |
+|---|---|
+| 1 | B− |
+| 2 | A+ |
+| 3 | Signal GND (required) |
+
+Bus parameters: 19200 baud, 8 data bits, even parity, 1 stop bit, slave address 70.
+
+## Bridge wiring: AtomS3 Lite + Tail485
+
+The ESPHome config (`esphome/vitovent-300w.yaml`) uses PORT.A of the AtomS3 Lite.
+
+**ESP side (AtomS3 Lite, PORT.A)**
+
+| PORT.A pin | Signal | Tail485 side |
+|---|---|---|
+| 1 | GPIO1 (RX) | RO / Tail485 "RX" |
+| 2 | GPIO2 (TX) | DI / Tail485 "TX" |
+| 3 | 5 V | 5 V |
+| 4 | GND | GND |
+
+PORT.A uses a 2.0 mm connector (GH2.0 on the schematic, HY2.0-4P in the M5 docs). The Tail485 uses VH-3.96 4P. No ready-made adapter was available, so the cable has to be built by hand.
+
+**Tail485 to bus**
+
+The Tail485 contains an SP485-family transceiver. Its pins (Sipex SP481E/SP485E datasheet, pin-compatible family):
+
+| Chip pin | Name | Connect to |
+|---|---|---|
+| 1 | RO | ESP RX (GPIO1) |
+| 4 | DI | ESP TX (GPIO2) |
+| 6 | A | X15 pin 2 (A+) |
+| 7 | B | X15 pin 1 (B−) |
+| 5 | GND | GND |
+| 8 | VCC | 5 V |
+| 2, 3 | /RE, DE | Direction control on the board (auto, to verify) |
+
+Open points (see issues):
+- Confirm the Tail485 RX/TX labels against the board, and that the board uses an SP485EEN with this pinout (#2).
+- Confirm that the board switches direction automatically, with no echo or collision on the bus (#3).
+- Wire polarity before connecting to the unit: A to pin 2, B to pin 1.
