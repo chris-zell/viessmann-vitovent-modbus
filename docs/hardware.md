@@ -34,7 +34,7 @@ PORT.A                                       TTL-Seite   RS485-Seite  X15
  Pin 4 GND       ------------------------------ GND ------------------------- Pin 3 (GND)
 ```
 
-- Der AtomS3 Lite steckt in PORT.A. Die Belegung ist unten (Tabelle) und wird in `esphome/vitovent-300w.yaml` über `modbus_rx_pin` und `modbus_tx_pin` gesetzt.
+- Der AtomS3 Lite steckt in PORT.A. Die Belegung ist unten (Tabelle) und wird in `vitovent-300w.yaml` über `modbus_rx_pin` und `modbus_tx_pin` gesetzt.
 - Das Kabel verbindet PORT.A (2,0 mm) mit dem Tail485 (VH-3.96). Die Farben für die Adern nach dem M5-Standard: G1 = weiß, G2 = gelb, 5 V = rot, GND = schwarz.
 - Der Tail485 bekommt die RS485-Leitungen A und B auf den VH-3.96-Stecker. A geht an Pin 2 von X15, B an Pin 1.
 - Die Signal-GND muss auf X15 Pin 3 gelegt werden. Ohne sie antwortet der Bus laut README nicht.
@@ -57,7 +57,7 @@ The X15 pinout and the serial parameters are in the [README](../README.md#2-phys
 
 ## Bridge wiring: AtomS3 Lite + Tail485
 
-The ESPHome config (`esphome/vitovent-300w.yaml`) uses PORT.A of the AtomS3 Lite.
+The ESPHome config (`vitovent-300w.yaml`) uses PORT.A of the AtomS3 Lite.
 
 **ESP side (AtomS3 Lite, PORT.A)**
 
