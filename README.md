@@ -42,6 +42,8 @@
 
 ---
 
+> Origin: this documentation is based on the work published at [hornpa/viessmann-vitovent-modbus](https://github.com/hornpa/viessmann-vitovent-modbus). Check the unit generation before use (see [docs/hardware.md](docs/hardware.md)).
+
 ## 1. Background: a Brink Flair in disguise
 
 Viessmann's central HRV units of the current generation, **Vitovent 300-W type H32S / H32E** (225/300/325/400 m³/h variants), are OEM versions of the **Brink Flair** series (Brink Climate Systems, NL). Inside sits Brink's **UWA2-B controller PCB** — connector names (X12…X19), DIP switches, everything matches the Brink service documentation.

@@ -7,9 +7,19 @@ This page covers the ventilation unit variants and the wiring of the ESP32 bridg
 | Model | Airflow | Status in this repo |
 |---|---|---|
 | Vitovent 300-W, Typ H32E C325 (enthalpy) | 325 m³/h | Tested (register scan, Loxone and gateway, see README) |
-| Vitovent 300-W, Typ H32S C400 (R) | 400 m³/h | Listed. Register map not verified on this variant |
+| Vitovent 300-W, Typ H32S C400 (R) | 400 m³/h | Listed. Register map not verified on this variant. Possibly an older generation (2013), see below |
 
 The register map in the README was derived from the H32E C325. Check the other variants before relying on it.
+
+### Check the unit generation first
+
+Older units may use a different control board or a different register layout. A unit from around 2013 likely belongs to an older generation, and the register map may not apply to it.
+
+Before any write:
+1. Open the unit (or have a qualified person do it) and identify the control board. The tested generation has a **UWA2-B** board with connector **X15**.
+2. Photograph the board, its label and the connectors, and compare them with the tested unit.
+3. Do not write register values unless the board and the register behaviour have been verified on that unit.
+4. Only one Modbus master may be active on the bus at a time.
 
 ## Bus connection (unit side, X15)
 
