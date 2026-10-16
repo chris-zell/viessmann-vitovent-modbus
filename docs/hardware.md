@@ -53,13 +53,7 @@ Offen (siehe Issues): Die Zuordnung Tail485 TX/RX zu DI/RO ist aus der M5-Tabell
 
 ## Bus connection (unit side, X15)
 
-| X15 pin | Function |
-|---|---|
-| 1 | B− |
-| 2 | A+ |
-| 3 | Signal GND (required) |
-
-Bus parameters: 19200 baud, 8 data bits, even parity, 1 stop bit, slave address 70.
+The X15 pinout and the serial parameters are in the [README](../README.md#2-physical-connection) (section 2). They are not repeated here.
 
 ## Bridge wiring: AtomS3 Lite + Tail485
 
