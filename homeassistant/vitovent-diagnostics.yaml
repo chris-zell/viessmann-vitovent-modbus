@@ -1,0 +1,76 @@
+# ============================================================
+# Vitovent 300-W: diagnostics for the bridge and the unit
+# Requires the ESPHome config vitovent-300w.yaml (watchdog sensor "Vitovent letzte Antwort").
+# Entity ids are derived from the ESPHome names. Check them on your installation first.
+# ============================================================
+
+template:
+  - binary_sensor:
+      - name: "Vitovent Stufe nicht verfügbar"
+        unique_id: vitovent_stage_unavailable
+        state: >-
+          {{ states('select.vitovent_300w_lueftungsstufe_soll') in ['unknown', 'unavailable'] }}
+        delay_on: "00:00:30"
+
+      - name: "Vitovent Daten veraltet"
+        unique_id: vitovent_data_stale
+        # Stale if the watchdog is missing, or the unit has not answered for more than 120 s
+        state: >-
+          {% set age = states('sensor.vitovent_300w_vitovent_letzte_antwort') %}
+          {{ age in ['unknown', 'unavailable'] or age | float(0) > 120 }}
+        delay_on: "00:00:30"
+
+automation:
+  - alias: "Vitovent: Alarm Stufe nicht verfügbar"
+    id: vitovent_alarm_stage_unavailable
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.vitovent_stufe_nicht_verfuegbar
+        to: "on"
+    action:
+      - service: persistent_notification.create
+        data:
+          notification_id: vitovent_stage_unavailable
+          title: "Vitovent: Stufe nicht verfügbar"
+          message: >-
+            Die Lüftungsstufe ist seit mehr als 30 s nicht verfügbar. Prüfen: ESPHome-Bridge (WLAN, Strom) und Tail485-Verkabelung.
+
+  - alias: "Vitovent: Alarm Daten veraltet"
+    id: vitovent_alarm_data_stale
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.vitovent_daten_veraltet
+        to: "on"
+    action:
+      - service: persistent_notification.create
+        data:
+          notification_id: vitovent_data_stale
+          title: "Vitovent: Keine Antwort vom Gerät"
+          message: >-
+            Das Gerät hat seit über 2 Minuten nicht geantwortet, oder die Bridge ist offline. Prüfen: Bus-Verkabelung (A/B/GND), Slave-Adresse 70, Logs der ESPHome-Bridge.
+
+  - alias: "Vitovent: Entwarnung"
+    id: vitovent_alarm_clear
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.vitovent_stufe_nicht_verfuegbar
+          - binary_sensor.vitovent_daten_veraltet
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.vitovent_stufe_nicht_verfuegbar
+        state: "off"
+      - condition: state
+        entity_id: binary_sensor.vitovent_daten_veraltet
+        state: "off"
+    action:
+      - service: persistent_notification.dismiss
+        data:
+          notification_id: vitovent_stage_unavailable
+      - service: persistent_notification.dismiss
+        data:
+          notification_id: vitovent_data_stale
