@@ -6,7 +6,7 @@ This page covers the ventilation unit variants and the wiring of the ESP32 bridg
 
 | Model | Airflow | Status in this repo |
 |---|---|---|
-| Vitovent 300-W, Typ H32E C325 (enthalpy) | 325 m³/h | Tested (register scan, Loxone and gateway, see README) |
+| Vitovent 300-W, Typ H32E C325 (enthalpy) | 325 m³/h | Tested (register scan and USR-TCP232 gateway, see README) |
 | Vitovent 300-W, Typ H32S C400 (R) | 400 m³/h | Listed. Register map not verified on this variant. Possibly an older generation (2013), see below |
 
 The register map in the README was derived from the H32E C325. Check the other variants before relying on it.
