@@ -29,7 +29,7 @@ esp32:
 # USB-CDC logging: baud_rate 0 avoids a clash with GPIO1/2
 logger:
   level: INFO
-  baud_rate: 0
+  hardware_uart: USB_CDC
   logs:
     modbus_controller: INFO
 
