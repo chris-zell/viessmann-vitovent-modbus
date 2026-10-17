@@ -168,10 +168,10 @@ sensor:
     state_class: measurement
     accuracy_decimals: 1
     filters:
-      - multiply: 0.1
       - lambda: |-
-          if (x >= 3276.8 || x <= -3276.8) return {};
+          if (x >= 32767 || x <= -32767) return {};
           return x;
+      - multiply: 0.1
 
   - platform: modbus_controller
     modbus_controller_id: vitovent
@@ -185,10 +185,10 @@ sensor:
     state_class: measurement
     accuracy_decimals: 1
     filters:
-      - multiply: 0.1
       - lambda: |-
-          if (x >= 3276.8 || x <= -3276.8) return {};
+          if (x >= 32767 || x <= -32767) return {};
           return x;
+      - multiply: 0.1
 
   - platform: modbus_controller
     modbus_controller_id: vitovent
@@ -202,10 +202,10 @@ sensor:
     state_class: measurement
     accuracy_decimals: 1
     filters:
-      - multiply: 0.1
       - lambda: |-
-          if (x >= 3276.8 || x <= -3276.8) return {};
+          if (x >= 32767 || x <= -32767) return {};
           return x;
+      - multiply: 0.1
 
   # ---- Humidity ----
   - platform: modbus_controller
