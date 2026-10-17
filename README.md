@@ -4,7 +4,7 @@
 
 > Verified on: **Vitovent 300-W, Typ H32E C325** (enthalpy variant, order no. Z026527), August 2026, controlled via a USR-TCP232-410S Modbus-TCP gateway. Read the [disclaimer](#disclaimer) before touching your unit.
 
-> **Ready-to-flash ESPHome config for the AtomS3 Lite + Tail485:** [`vitovent-300w.yaml`](vitovent-300w.yaml) (see [docs/hardware.md](docs/hardware.md) for wiring).
+> **ESPHome config for the AtomS3 Lite + Tail485** (validated with `esphome config`, not yet tested on a unit): [`vitovent-300w.yaml`](vitovent-300w.yaml) (see [docs/hardware.md](docs/hardware.md) for wiring).
 
 ---
 
@@ -27,12 +27,16 @@
 | File | What it is |
 |---|---|
 | `README.md` | This document — background, wiring, and the full register map. |
+| [`docs/hardware.md`](docs/hardware.md) | Unit variants, bridge wiring (AtomS3 Lite + Tail485) and the generation check. |
+| [`vitovent-300w.yaml`](vitovent-300w.yaml) | ESPHome config: Modbus RTU bridge to the unit, sensors, stage and bypass controls. |
+| [`homeassistant/vitovent-stage-resend.yaml`](homeassistant/vitovent-stage-resend.yaml) | Home Assistant automation that re-sends the target stage (register 2002). |
 | [`registers-raw.jsonl`](registers-raw.jsonl) | Raw scan data: every existing register (FC03/FC04, addresses 0–65535) with the value read at scan time. One JSON object per line. |
 | `ha-dashboard-background.png` / `ha-dashboard-cheatsheet.png` | Plant schematic as a Home Assistant picture-elements background (empty value slots) + a cheat sheet mapping each slot to its register/sensor. |
 
 ## Table of contents
 
-0. [Hardware: units and bridge wiring](docs/hardware.md)
+- [Hardware: units and bridge wiring](docs/hardware.md)
+
 1. [Background: a Brink Flair in disguise](#1-background-a-brink-flair-in-disguise)
 2. [Physical connection](#2-physical-connection)
 3. [What does NOT work](#3-what-does-not-work-brink-standard-vs-viessmann-firmware)
