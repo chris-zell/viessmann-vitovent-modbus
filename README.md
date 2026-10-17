@@ -30,6 +30,7 @@
 | [`docs/hardware.md`](docs/hardware.md) | Unit variants, bridge wiring (AtomS3 Lite + Tail485) and the generation check. |
 | [`vitovent-300w.yaml`](vitovent-300w.yaml) | ESPHome config: Modbus RTU bridge to the unit, sensors, stage and bypass controls. |
 | [`homeassistant/vitovent-stage-resend.yaml`](homeassistant/vitovent-stage-resend.yaml) | Home Assistant automation that re-sends the target stage (register 2002). |
+| [`homeassistant/vitovent-diagnostics.yaml`](homeassistant/vitovent-diagnostics.yaml) | Home Assistant alerts when the stage is unavailable or the unit has not answered for over 2 minutes. |
 | [`registers-raw.jsonl`](registers-raw.jsonl) | Raw scan data: every existing register (FC03/FC04, addresses 0–65535) with the value read at scan time. One JSON object per line. |
 | `ha-dashboard-background.png` / `ha-dashboard-cheatsheet.png` | Plant schematic as a Home Assistant picture-elements background (empty value slots) + a cheat sheet mapping each slot to its register/sensor. |
 
