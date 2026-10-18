@@ -49,7 +49,9 @@ PORT.A                                       TTL-Seite   RS485-Seite  X15
 | Bus B | Tail485 B | X15 Pin 1 (B−) |
 | Bus GND | Tail485 GND | X15 Pin 3 (GND) |
 
-Offen (siehe Issues): Die Zuordnung Tail485 TX/RX zu DI/RO ist aus der M5-Tabelle und dem Chip abgeleitet, nicht am Board geprüft (#2). Die Richtungsumschaltung ist nicht getestet (#3).
+**Status:** Die Verkabelung über PORT.A mit der Tail485-Belegung (GPIO1 = RX, GPIO2 = TX) läuft im Funktionstest stabil. Die Richtungsumschaltung arbeitet ohne Steuerpin. Die RTS-Leitung wird nicht genutzt.
+
+Offen: ein formaler Loopback- oder Oszilloskop-Test zum Echo und zu Kollisionen (#3).
 
 ## Bus connection (unit side, X15)
 
@@ -84,7 +86,7 @@ The Tail485 contains an SP485-family transceiver. Its pins (Sipex SP481E/SP485E 
 | 8 | VCC | 5 V |
 | 2, 3 | /RE, DE | Direction control on the board (auto, to verify) |
 
-Open points (see issues):
-- Confirm the Tail485 RX/TX labels against the board, and that the board uses an SP485EEN with this pinout (#2).
-- Confirm that the board switches direction automatically, with no echo or collision on the bus (#3).
+Status: wired and working in the functional test (stable operation). The RX/TX assignment above is confirmed by operation. The direction switching works without a control pin.
+
+Still open: a formal loopback or scope test for echo and collisions (#3).
 - Wire polarity before connecting to the unit: A to pin 2, B to pin 1.
