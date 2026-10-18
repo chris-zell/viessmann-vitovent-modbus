@@ -29,7 +29,7 @@ esp32:
 # USB-CDC logging: baud_rate 0 avoids a clash with GPIO1/2
 logger:
   level: INFO
-  hardware_uart: USB_CDC
+  baud_rate: 0
   logs:
     modbus_controller: INFO
 
@@ -63,6 +63,7 @@ uart:
 modbus:
   id: modbus_rtu
   uart_id: uart_modbus_rtu
+  turnaround_time: 100ms
 
 globals:
   - id: last_vent_ok
@@ -74,7 +75,6 @@ modbus_controller:
   - id: vitovent
     address: ${modbus_slave_id}
     modbus_id: modbus_rtu
-    command_throttle: 100ms
     update_interval: 10s
     offline_skip_updates: 3
 
