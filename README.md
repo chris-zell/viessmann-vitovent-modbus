@@ -4,7 +4,7 @@
 
 > Verified on: **Vitovent 300-W, Typ H32E C325** (enthalpy variant, order no. Z026527), August 2026, controlled via a USR-TCP232-410S Modbus-TCP gateway. Read the [disclaimer](#disclaimer) before touching your unit.
 
-> **ESPHome config for the AtomS3 Lite + Tail485** (validated with `esphome config`, not yet tested on a unit): [`vitovent-300w.yaml`](vitovent-300w.yaml) (see [docs/hardware.md](docs/hardware.md) for wiring).
+> **ESPHome config for the AtomS3 Lite + Tail485** (running stably on the unit since the functional test, see [issue #4](https://github.com/chris-zell/viessmann-vitovent-modbus/issues/4)): [`vitovent-300w.yaml`](vitovent-300w.yaml) (see [docs/hardware.md](docs/hardware.md) for wiring).
 
 ---
 
